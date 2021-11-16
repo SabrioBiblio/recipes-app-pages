@@ -1,19 +1,22 @@
 import React, { FC } from 'react'
-import { useSelector } from 'react-redux'
-import {IState} from '../interface/interfaces'
+import {IRecipe} from '../interface/interfaces'
 
-import RecipeCardWishlist from '../RecipeCardWishlist/RecipeCardWishlist'
+import RecipeCardWishlist from '../components/RecipeCardWishlist/RecipeCardWishlist';
 
 const Wishlist: FC = () => {
-  const wishlist = useSelector((state: IState) => state.wishlist)
+  const wishlist: IRecipe[] = JSON.parse(localStorage.getItem('wishlist')!) || [];
+
+  if(wishlist.length === 0){
+    return <div>Empty wishlist</div>
+  }
 
   return (
-    <div>
+    <div className='container d-flex d-flex-wrap'>
       {wishlist.map((recipe) => {
-        return <RecipeCardWishlist recipe={recipe[0]}/>
+        return <RecipeCardWishlist recipe={recipe} key={recipe.idMeal}/>
       })}
     </div>
   )
 }
 
-export default Wishlist
+export default Wishlist;

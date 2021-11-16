@@ -23,6 +23,10 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+input, textarea{
+	box-sizing: border-box;
+	font-family: 'Roboto';
+}
 body {
   font-family: 'Roboto';
 }
@@ -65,4 +69,15 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+
+.container {
+	max-width: 1300px;
+	margin: 0 auto;
+}
+.d-flex{
+	display: flex;
+}
+.d-flex-wrap{
+	flex-wrap: wrap;
 }

@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react'
 import type { FC } from 'react'; 
 import {useDispatch, useSelector} from "react-redux";
-import {getRecipe, addToWishlist} from '../store/actionsRecipe';
+import {getRecipe, addToWishlist} from '../../store/actionsRecipe';
 import s from './Recipe.module.css'
-import {ReactComponent as Heart} from '../images/heart.svg';
-import {IRecipe, IState} from '../interface/interfaces'
+import {ReactComponent as Heart} from '../../images/heart.svg';
+import {IRecipe, IState} from '../../interface/interfaces'
 
 const Recipe: FC = () => {
   const [stateInstruction, setInstructionState] = useState(false);
@@ -20,7 +20,6 @@ const Recipe: FC = () => {
 
   const recipe = useSelector((state: IState) => state.recipe)
 
-  console.log(recipe)
   if(recipe.length === 0){
     return <div></div>
   }
@@ -49,14 +48,14 @@ const Recipe: FC = () => {
   
   for(let i: number = 1; i <= 20; i++){
     if(recipe[0][`strIngredient${i}`]){
-      recipeIngredients.push(<p>{recipe[0][`strIngredient${i}`] + ': ' + recipe[0][`strMeasure${i}`]}</p>)
+      recipeIngredients.push(<p key={recipe[0][`strIngredient${i}`]}>{recipe[0][`strIngredient${i}`] + ': ' + recipe[0][`strMeasure${i}`]}</p>)
     }
   }
 
   if(strTags){
     const recipeTags = strTags.split(',');
     recipeTagsEl = recipeTags.map((tag: string) => {
-      return <span className={s.recipeTag}>
+      return <span key={tag} className={s.recipeTag}>
           {tag}
         </span>
     })
@@ -72,19 +71,19 @@ const Recipe: FC = () => {
       </div>
       <div className={s.recipeMain}>
         <div className={s.recipeMainProps}>
-            {strTags ?
-            <>
-            <h4>Tags:</h4>
-            <div className={s.recipeMainTags}>
-              {recipeTagsEl}
-            </div>
-            </>
-            : null}
+            { !!strTags &&
+              <>
+                <h4>Tags:</h4>
+                <div className={s.recipeMainTags}>
+                  {recipeTagsEl}
+                </div>
+              </>
+            }
             <h4>Category: <span>{strCategory}</span></h4>
             <h4>Area: <span>{strArea}</span></h4>
             <div
-            onClick={() => setIngredientsState(!stateIngredients)}
-            className={`${s.recipeMainIngredients} ${stateIngredients ? s.uncovered : s.covered}`}>
+              onClick={() => setIngredientsState(!stateIngredients)}
+              className={`${s.recipeMainIngredients} ${stateIngredients ? s.uncovered : s.covered}`}>
               <h4>Ingredients:</h4>
               {recipeIngredients}
             </div>
@@ -100,7 +99,7 @@ const Recipe: FC = () => {
         <h2>Instruction</h2>
         <p>{strInstructions}</p>
       </div>
-      <button onClick={() => dispatch(getRecipe())}>Next recipe</button>
+      <button className={s.recipeRandom} onClick={() => dispatch(getRecipe())}>Next recipe</button>
     </div>
   )
 }

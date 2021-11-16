@@ -20,7 +20,6 @@ const getRecipeSuccess = (payload: IPayload) => {
 }
 
 export const addToWishlist = (payload: IRecipe) => {
-  
   return {
     type: 'ADD_TO_WISHLIST',
     payload

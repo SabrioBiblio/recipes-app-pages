@@ -1,8 +1,9 @@
 import {IRecipe} from '../interface/interfaces'
+import {update} from '../common/utils'
 
 interface IStateRecipe {
-  recipe?: any[];
-  wishlist?: IRecipe[];
+  recipe: any[];
+  wishlist: IRecipe[];
 }
 
 interface IActionRecipe { 
@@ -18,9 +19,15 @@ const initialState: IStateRecipe = {
 const getRecipe = (state: IStateRecipe  = initialState, action: IActionRecipe) => {
   switch (action.type){
     case 'SET_RECIPE':
-      return {recipe: action.payload.meals}
+      return update(state, {recipe: {...state.recipe, ...action.payload.meals}})
     case 'ADD_TO_WISHLIST':
-      return {...state, wishlist: {...state.wishlist, ...action.payload}}
+      return update(state, {
+          wishlist: 
+          [
+            ...state.wishlist,
+            action.payload
+          ]
+        })
     default: 
       return state;
   }

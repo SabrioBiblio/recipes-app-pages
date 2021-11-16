@@ -12,3 +12,7 @@ export interface IState {
   recipe: IRecipe[];
   wishlist: IRecipe[];
 }
+
+export interface IWishlist {
+  recipe: IRecipe;
+}
