@@ -9,7 +9,7 @@ import s from './AddRecipeForm.module.css'
 const AddRecipeForm: FC = () => {
   const [titleRecipe, updateTitleRecipe] = useState('');
   const [descriptionRecipe, updateDescriptionRecipe] = useState('');
-  const [errorValidate, updateError] = useState('');
+  const [formValidate, updateFormValidate] = useState('');
 
   let recipe: IRecipe = {
     strMeal: titleRecipe,
@@ -29,11 +29,13 @@ const AddRecipeForm: FC = () => {
       (e) => {
         e.preventDefault();
         if(titleRecipe.length <= 5 || descriptionRecipe.length <= 5){
-          updateError('Title and description might have length more than 5 symbols');
+          updateFormValidate('Title and description might have length more than 5 symbols');
+          return;
         }
-        updateError('');
+        updateFormValidate('');
         dispatch(addToWishlist(recipe));
         wishlistHandler(recipe);
+        updateFormValidate('Your recipe has been added to favorite');
       }
       }>
       <input
@@ -50,7 +52,7 @@ const AddRecipeForm: FC = () => {
         placeholder="Recipe instruction"
       />
       <button className={s.buttonAddRecipe} type='submit'>Create recipe</button>
-      <span>{errorValidate}</span>
+      <div className={s.formValidate}>{formValidate}</div>
     </form>
     </>
   )

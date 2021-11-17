@@ -15,12 +15,16 @@ const RecipeCardWishlist: FC<IWishlist> = (props) => {
 
   return (
     <div className={s.wishlistCardWrapper}>
-      <div>
-        <img src={strMealThumb ? strMealThumb : imagePlaceholder} alt="" />
+      <div className={s.wishlistCardImage}>
+        <img className={s.wishlistCardImage} src={strMealThumb ? strMealThumb : imagePlaceholder} alt="" />
       </div>
       <div className={s.wishlistCardDescription}>
         <h1 className={s.wishlistCardTitle}>{strMeal}</h1>
-        <p>{strInstructions.slice(0, 220)}...</p>
+        <p>
+          {strInstructions.length > 200 ?
+            strInstructions.slice(0, 220) + '...' :
+            strInstructions}
+        </p>
       </div>
     </div>
   )

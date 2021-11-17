@@ -84,3 +84,16 @@
   display: block;
   margin-top: 2rem;
 }
+@media (max-width: 500px){
+  .recipeMain{
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .recipeMainProps,
+  .recipeMainImage {
+    width: 100%;
+  }
+  .recipeMainProps {
+    margin-top: 1rem;
+  }
+}

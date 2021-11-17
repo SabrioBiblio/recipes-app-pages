@@ -72,6 +72,7 @@ table {
 }
 
 .container {
+	padding: 0 1.5rem;
 	max-width: 1300px;
 	margin: 0 auto;
 }
@@ -80,4 +81,16 @@ table {
 }
 .d-flex-wrap{
 	flex-wrap: wrap;
+}
+
+@media (max-width: 500px){
+	h1 {
+		font-weight: 500;
+		font-size: 24px;
+	}
+	h2 {
+		font-weight: 500;
+		font-size: 20px;
+		margin-bottom: 1rem;
+	}
 }

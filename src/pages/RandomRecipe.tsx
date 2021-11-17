@@ -1,12 +1,13 @@
 import React from 'react'
 import type { FC } from 'react';
 
-import Recipe from '../components/Recipe/Recipe';
-import AddRecipeForm from '../components/AddRecipeForm/AddRecipeForm';
+import Recipe from '../components/Recipe/Recipe';;
 
 const RandomRecipe: FC = () => {
   return (
-    <Recipe/>
+    <div className='container d-flex d-flex-wrap'>
+      <Recipe/>
+    </div>
   )
 }
 

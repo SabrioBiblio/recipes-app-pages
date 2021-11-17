@@ -1,5 +1,5 @@
-import React, { FC } from 'react'
-import { Link } from 'react-router-dom';
+import React, {FC} from 'react'
+import {Link} from 'react-router-dom';
 
 import s from './Header.module.css'
 
@@ -15,7 +15,7 @@ const Header: FC<IHeader> = ({ setIsOpen }) => {
           <li><Link to='/'>Home</Link></li>
           <li><Link to='/favorite'>Favorite</Link></li>
         </ul>
-        <button onClick={() => setIsOpen(true)}>OPEN</button>
+        <button className={s.btnAddRecipe} onClick={() => setIsOpen(true)}>Add new recipe</button>
       </div>
     </header>
   )

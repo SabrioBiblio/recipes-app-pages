@@ -1,28 +1,29 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import type { FC } from 'react'; 
 import {useDispatch, useSelector} from "react-redux";
 import {getRecipe, addToWishlist} from '../../store/actionsRecipe';
-import s from './Recipe.module.css'
-import {ReactComponent as Heart} from '../../images/heart.svg';
-import {IRecipe, IState} from '../../interface/interfaces'
+import {IState} from '../../interface/interfaces'
 import {wishlistHandler} from '../../common/utils';
 
+import s from './Recipe.module.css'
+import {ReactComponent as Heart} from '../../images/heart.svg';
+import imagePlaceholder from '../../images/image_placeholder.jpg'
+import Spinner from '../Spinner/Spinner';
+
 const Recipe: FC = () => {
+  const dispatch = useDispatch();
   const [stateInstruction, setInstructionState] = useState(false);
   const [stateIngredients, setIngredientsState] = useState(false);
 
-  const dispatch = useDispatch();
   let recipeTagsEl: JSX.Element[] = [];
   let recipeIngredients: JSX.Element[] = [];
-
-  useEffect(() => {
-    dispatch(getRecipe());
-  }, []);
 
   const recipe = useSelector((state: IState) => state.recipe)
 
   if(recipe.length === 0){
-    return <div></div>
+    return (
+        <Spinner/>
+    )
   }
 
   const {
@@ -36,7 +37,10 @@ const Recipe: FC = () => {
   
   for(let i: number = 1; i <= 20; i++){
     if(recipe[0][`strIngredient${i}`]){
-      recipeIngredients.push(<p key={recipe[0][`strIngredient${i}`]}>{recipe[0][`strIngredient${i}`] + ': ' + recipe[0][`strMeasure${i}`]}</p>)
+      recipeIngredients.push(<p 
+          key={recipe[0][`strIngredient${i}`]}
+        >{recipe[0][`strIngredient${i}`] + ': ' + recipe[0][`strMeasure${i}`]}
+        </p>)
     }
   }
 
@@ -48,6 +52,7 @@ const Recipe: FC = () => {
         </span>
     })
   }
+
   return (
     <div className={s.recipeWrapper}>
       <div className={s.recipeHead}>
@@ -81,17 +86,20 @@ const Recipe: FC = () => {
             </div>
         </div>
         <div className={s.recipeMainImage}>
-          <img src={strMealThumb} alt="" />
+          <img src={strMealThumb ?  strMealThumb : imagePlaceholder} alt="" />
         </div>
       </div>
       <div
-      className={`${s.recipeInstruction} ${stateInstruction ? s.uncovered : s.covered}`}
+      className={`${s.recipeInstruction} ${stateInstruction? s.uncovered : s.covered}`}
       onClick={() => setInstructionState(!stateInstruction)}
       >
         <h2>Instruction</h2>
         <p>{strInstructions}</p>
       </div>
-      <button className={s.recipeRandom} onClick={() => dispatch(getRecipe())}>Next recipe</button>
+      <button
+        className={s.recipeRandom}
+        onClick={() => dispatch(getRecipe())}
+      >Next recipe</button>
     </div>
   )
 }
