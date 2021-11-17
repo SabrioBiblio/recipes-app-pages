@@ -5,6 +5,7 @@ import {getRecipe, addToWishlist} from '../../store/actionsRecipe';
 import s from './Recipe.module.css'
 import {ReactComponent as Heart} from '../../images/heart.svg';
 import {IRecipe, IState} from '../../interface/interfaces'
+import {wishlistHandler} from '../../common/utils';
 
 const Recipe: FC = () => {
   const [stateInstruction, setInstructionState] = useState(false);
@@ -22,19 +23,6 @@ const Recipe: FC = () => {
 
   if(recipe.length === 0){
     return <div></div>
-  }
-
-  const wishlistHandler = () => {
-    let oldStorage: IRecipe[] = JSON.parse(localStorage.getItem('wishlist') || '[]');
-    let hasRecipe = oldStorage.filter((rec) => rec.idMeal === recipe[0].idMeal)
-    
-    if(hasRecipe.length === 0){
-      localStorage.setItem('wishlist', JSON.stringify([...oldStorage, recipe[0]]));
-    }else{
-      const newStorage = oldStorage.filter((rec) => rec.idMeal !== recipe[0].idMeal)
-      localStorage.setItem('wishlist', JSON.stringify(newStorage));
-    }
-    dispatch(addToWishlist(recipe[0]))
   }
 
   const {
@@ -65,8 +53,12 @@ const Recipe: FC = () => {
       <div className={s.recipeHead}>
         <h1>{strMeal}</h1>
         <div className={s.recipeHeadWishlist}>
-          <Heart className={s.recipeHeadHeart}
-          onClick={wishlistHandler}/>
+          <Heart className
+          ={s.recipeHeadHeart}
+          onClick={() => {
+            dispatch(addToWishlist(recipe[0]));
+            wishlistHandler(recipe[0]);
+          }}/>
         </div>
       </div>
       <div className={s.recipeMain}>
