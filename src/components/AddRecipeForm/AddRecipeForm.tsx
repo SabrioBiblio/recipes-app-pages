@@ -23,39 +23,39 @@ const AddRecipeForm: FC = () => {
   const dispatch = useDispatch();
 
   return (
-    <>
-    <h2>Add custom recipe</h2>
-    <form onSubmit={
-      (e) => {
-        e.preventDefault();
-        if(titleRecipe.length <= 5 || descriptionRecipe.length <= 5){
-          updateFormValidate('Title and description might have length more than 5 symbols');
-          return;
+    <div className={s.addRecipeFormWrapper} onClick={(e) => e.stopPropagation()}>
+      <h2>Add custom recipe</h2>
+      <form onSubmit={
+        (e) => {
+          e.preventDefault();
+          if(titleRecipe.length <= 5 || descriptionRecipe.length <= 5){
+            updateFormValidate('Title and description might have length more than 5 symbols');
+            return;
+          }
+          updateTitleRecipe('');
+          updateDescriptionRecipe('');
+          dispatch(addToWishlist(recipe));
+          wishlistHandler(recipe);
+          updateFormValidate('Your recipe has been added to favorite');
         }
-        updateTitleRecipe('');
-        updateDescriptionRecipe('');
-        dispatch(addToWishlist(recipe));
-        wishlistHandler(recipe);
-        updateFormValidate('Your recipe has been added to favorite');
-      }
-      }>
-      <input
-        className={s.inputTitle}
-        onChange={(e) => updateTitleRecipe(e.target.value)}
-        type="text"
-        value={titleRecipe}
-        placeholder="Recipe title"
-      />
-      <textarea
-        className={s.textDescription}
-        onChange={(e) => updateDescriptionRecipe(e.target.value)}
-        value={descriptionRecipe}
-        placeholder="Recipe instruction"
-      />
-      <button className={s.buttonAddRecipe} type='submit'>Create recipe</button>
-      <div className={s.formValidate}>{formValidate}</div>
-    </form>
-    </>
+        }>
+        <input
+          className={s.inputTitle}
+          onChange={(e) => updateTitleRecipe(e.target.value)}
+          type="text"
+          value={titleRecipe}
+          placeholder="Recipe title"
+        />
+        <textarea
+          className={s.textDescription}
+          onChange={(e) => updateDescriptionRecipe(e.target.value)}
+          value={descriptionRecipe}
+          placeholder="Recipe instruction"
+        />
+        <button className={s.buttonAddRecipe} type='submit'>Create recipe</button>
+        <div className={s.formValidate}>{formValidate}</div>
+      </form>
+    </div>
   )
 }
 

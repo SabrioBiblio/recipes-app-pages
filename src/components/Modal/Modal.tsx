@@ -16,14 +16,11 @@ const Modal: FC<IModal> = ({ children, isOpen, setIsOpen }) => {
 
   return (
     <>
-      <div className={`${s.modalWrapper} ${isOpen && s.isOpen}`}>
+      <div
+      onClick={closeModal}
+      className={`${s.modalWrapper} ${isOpen && s.isOpen}`}>
         { children }
       </div>
-      <div 
-        className={`${s.modalBackdrop} 
-        ${isOpen && s.isOpen}`}
-        onClick={closeModal}
-      ></div>
     </>
   )
 }
