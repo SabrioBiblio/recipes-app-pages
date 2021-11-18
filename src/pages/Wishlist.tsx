@@ -7,7 +7,11 @@ const Wishlist: FC = () => {
   const wishlist: IRecipe[] = JSON.parse(localStorage.getItem('wishlist')!) || [];
 
   if(wishlist.length === 0){
-    return <div>Empty wishlist</div>
+    return (
+      <div className='container'>
+        <h1>Empty wishlist</h1>
+      </div>
+    )
   }
 
   return (

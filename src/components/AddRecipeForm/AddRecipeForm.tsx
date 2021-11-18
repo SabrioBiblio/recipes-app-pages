@@ -32,7 +32,8 @@ const AddRecipeForm: FC = () => {
           updateFormValidate('Title and description might have length more than 5 symbols');
           return;
         }
-        updateFormValidate('');
+        updateTitleRecipe('');
+        updateDescriptionRecipe('');
         dispatch(addToWishlist(recipe));
         wishlistHandler(recipe);
         updateFormValidate('Your recipe has been added to favorite');
